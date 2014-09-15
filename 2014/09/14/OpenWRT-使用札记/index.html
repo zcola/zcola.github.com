@@ -11,8 +11,9 @@
     
     <meta name="description" content="使用 TPLINK TL-WR720N V3 无线路由刷 OpenWRT 固件的学习整理。
 基础知识
+
 系统结构
-MTD（Memory Technology Devices，内存技术设备）是用于访问内存类设备 (ROM、FLASH) 的 Linux 驱动子系统。它的主要目的使 FLASH 类设备更加容">
+MTD（Memory Technology Devices，内存技术设备）是用于访问内存类设备 (ROM、FLASH) 的 Linux 驱动子系统。它的主要目的使 FLASH 类设备更加">
     
     
     
@@ -78,7 +79,7 @@ MTD（Memory Technology Devices，内存技术设备）是用于访问内存类�
     </p>
   <p class="article-time">
     <time datetime="2014-09-14T14:52:38.000Z" itemprop="datePublished">9月 14 2014</time>
-    更新日期:<time datetime="2014-09-14T15:15:24.000Z" itemprop="dateModified">9月 14 2014</time>
+    更新日期:<time datetime="2014-09-15T14:21:02.000Z" itemprop="dateModified">9月 15 2014</time>
     
   </p>
 </header>
@@ -92,6 +93,7 @@ MTD（Memory Technology Devices，内存技术设备）是用于访问内存类�
 		
 		<p>使用 TPLINK TL-WR720N V3 无线路由刷 OpenWRT 固件的学习整理。</p>
 <h2 id="基础知识">基础知识</h2>
+<hr>
 <h3 id="系统结构">系统结构</h3>
 <p>MTD（Memory Technology Devices，内存技术设备）是用于访问内存类设备 (ROM、FLASH) 的 Linux 驱动子系统。它的主要目的使 FLASH 类设备更加容易被访问，为此它在硬件和上层提供了一个抽象的接口，使得在操作系统下我们可以像操作硬盘一样操作这个设备。仔细观察过 Linux 启动信息的朋友会看到这么一段话：</p>
 <pre><code>[ <span class="number">0.690000</span>] <span class="number">5</span> tp-link partitions found on MTD device spi0<span class="string">.0</span>
@@ -152,9 +154,14 @@ info [pkg|regexp] 显示出指定软件包的信息
 <p>opkg 配置文件在 <code>/etc/opkg.conf</code> 可以配置源等参数。</p>
 <p>更新 opkg 的包列表，请注意，每次操作 opkg 下载之前都要先执行一次 <code>opkg update</code>，确保包列表是同步的。</p>
 <h2 id="实际操作">实际操作</h2>
+<hr>
 <h3 id="刷机">刷机</h3>
 <p>之前已经刷过一次 OpenWRT 了，这里说下在 OpenWRT 命令行界面的刷新方法：</p>
-<h3 id="登陆_SSH">登陆 SSH</h3>
+<pre><code><span class="keyword">cd</span> /tmp/
+wget xxxxx
+mtd -<span class="keyword">r</span> <span class="keyword">write</span> 你的固件文件名.bin firmware 
+reboot
+</code></pre><h3 id="登陆_SSH">登陆 SSH</h3>
 <p>默认是无法通过 SSH 登陆，先通过 <code>Telnet 192.168.1.1</code> 登陆后配置 root  密码才可以登陆。</p>
 <h3 id="WAN/LAN_网络设置">WAN/LAN 网络设置</h3>
 <p>网络配置文件为 <code>/etc/config/network</code>，修改参考如下：</p>
@@ -328,6 +335,10 @@ config <span class="string">'mount'</span>
 	</article>
 	
 	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
@@ -490,6 +501,18 @@ $(document).ready(function(){
 });     
 </script>
 
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zcola"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
